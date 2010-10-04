@@ -1,6 +1,6 @@
 #!/bin/bash
 BASEDIR="${HOME}/gpodder-downloads/"
-SYNCDIR="/media/sdb1/MUSIC/podcast-`date +%m%d`"
+SYNCDIR="/media/sansa/MUSIC/podcast-`date +%m%d`"
 mkdir -p ${SYNCDIR}
 echo $BASEDIR
 echo $SYNCDIR
