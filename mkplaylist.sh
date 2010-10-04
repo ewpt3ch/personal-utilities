@@ -1,19 +1,30 @@
 #!/bin/bash
 #usage mkplaylist.sh listname(optional) audiodir(optional)
+#or if $1 = debug BASEDIR will have /tmp prepended
 
 #variables
-BASEDIR="/media/sdb1"
-BASEDIR="/tmp/sdb1/" #uncomment to test or debug
+BASEDIR="/media/sansa"
 DATE=`date +%m%d`
 LISTNAME="podcast-${DATE}"
 AUDIODIR="${LISTNAME}"
 TMPFILE="/tmp/podcast-${DATE}.tmp"
-#print variables for debugging
-echo ${BASEDIR}
-echo ${DATE}
-echo ${LISTNAME}
-echo ${AUDIODIR}
-echo ${TMPFILE}
+
+#set debug mode and create some dirs in /tmp
+#for testing and/or debugging
+if [[ $1 == "debug" ]]
+then
+    BASEDIR="/tmp${BASEDIR}"
+    mkdir -p "${BASEDIR}/MUSIC/${AUDIODIR}"
+    mkdir "${BASEDIR}/PLAYLISTS"
+    echo ${BASEDIR}
+    echo ${DATE}
+    echo ${LISTNAME}
+    echo ${AUDIODIR}
+    echo ${TMPFILE}
+    shift
+    echo "$@"
+    echo "$1"
+fi
 
 #mk tmp playlist
 echo "PLP PLAYLIST" > ${TMPFILE}
@@ -28,5 +39,5 @@ done
 
 # convert playlist for use on sansa e280 and copy it there
 unix2dos ${TMPFILE}
-iconv -f ASCII -t UTF16LE -o "${BASEDIR}PLAYLISTS/${LISTNAME}.PLA" ${TMPFILE}
+iconv -f ASCII -t UTF16LE -o "${BASEDIR}/PLAYLISTS/${LISTNAME}.PLA" ${TMPFILE}
 rm ${TMPFILE}
