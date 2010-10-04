@@ -7,10 +7,10 @@ BASEDIR="/media/sansa"
 DATE=`date +%m%d`
 LISTNAME="podcast-${DATE}"
 AUDIODIR="${LISTNAME}"
-TMPFILE="/tmp/podcast-${DATE}.tmp"
+TMPFILE="/tmp/playlist.tmp"
 
 #set debug mode and create some dirs in /tmp
-#for testing and/or debugging
+#for testing and/or debugging.
 if [[ $1 == "debug" ]]
 then
     BASEDIR="/tmp${BASEDIR}"
@@ -24,6 +24,16 @@ then
     shift
     echo "$@"
     echo "$1"
+fi
+
+#check for options from cmd ln
+if [[ -n $1 ]]
+then
+    LISTNAME=$1
+fi
+if [[ -n $2 ]]
+then
+    AUDIODIR=$2
 fi
 
 #mk tmp playlist
