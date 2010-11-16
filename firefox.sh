@@ -15,15 +15,18 @@ then
     mount "${HOME}/.mozilla"
 fi
 cd "${HOME}/.mozilla"
-tar xf "${HOME}/conf/mozilla-${MODE}.tar.lzo" --use-compress-program lzop
+tar xf "${HOME}/conf/mozilla-${MODE}.tar"
 /usr/bin/firefox
-if [[ -n $UPDATE ]]
-then 
-    tar cf "mozilla-${MODE}.tar" "./firefox"
-    lzop -7U "mozilla-${MODE}.tar"
-    cp "${HOME}/conf/mozilla-${MODE}.tar.lzo" "${HOME}/conf/mozilla-${MODE}.tar.lzo.old"
-    cp "./mozilla-${MODE}.tar.lzo" "${HOME}/conf/mozilla-${MODE}.tar.lzo"
-fi
+tar cf "mozilla-${MODE}.tar" "./firefox"
+cp "${HOME}/conf/mozilla-${MODE}.tar" "${HOME}/conf/mozilla-${MODE}.tar.old"
+cp "${HOME}/.mozilla/mozilla-${MODE}.tar" "${HOME}/conf/mozilla-${MODE}.tar"
+#if [[ -n $UPDATE ]]
+#then 
+#    tar cf "mozilla-${MODE}.tar" "./firefox"
+#    lzop -7U "mozilla-${MODE}.tar"
+#    cp "${HOME}/conf/mozilla-${MODE}.tar.lzo" "${HOME}/conf/mozilla-${MODE}.tar.lzo.old"
+#    cp "./mozilla-${MODE}.tar.lzo" "${HOME}/conf/mozilla-${MODE}.tar.lzo"
+#fi
 rm -r firefox
 rm -r extensions
-rm mozilla*.tar.lzo
+rm mozilla*.tar
